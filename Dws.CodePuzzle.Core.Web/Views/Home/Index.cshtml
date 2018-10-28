@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>Code Puzzle</h2>
+<br />
+
+<div class="row">
+    <div class="col-lg-12">
+        @using (var form = Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        <div class="form-group">
+            <label>What shape would you like to draw?</label>
+            <div class="input-group">
+                <input type="text" autocomplete="off" class="form-control" value="@Model.Command" name="command" />
+                <div class="input-group-btn">
+                    <button class="btn btn-primary">Draw</button>
+                </div>
+            </div>
+        </div>
+
+}
+
+        @if (Model.Error != null)
+    {
+        <div class="alert alert-danger">
+            @Model.Error
+        </div>
+}
+    </div>
+</div>
+@if (Model.Shape != null)
+{
+    <code hidden id="shape">
+        @Json.Serialize(Model.Shape, new Newtonsoft.Json.JsonSerializerSettings()
+        {
+            TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Objects,
+            TypeNameAssemblyFormatHandling = Newtonsoft.Json.TypeNameAssemblyFormatHandling.Simple
+        })
+    </code>
+    <div>
+        <canvas width="1024" height="550" id="drawing_canvas" style="border: solid 1px #ccc; border-radius: 3px;"></canvas>
+    </div>
+}
+
+@section Scripts {
+    <script type="text/javascript" src="~/js/dws.codepuzzle.js"></script>
+}

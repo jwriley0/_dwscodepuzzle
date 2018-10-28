@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  dws.codepuzzle.core.web:
+    image: dwscodepuzzlecoreweb
+    build:
+      context: .
+      dockerfile: Dws.CodePuzzle.Core.Web\Dockerfile
