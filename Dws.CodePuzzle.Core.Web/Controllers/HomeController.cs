@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Dws.CodePuzzle.Core.Web.Models;
-using Autofac;
 
 namespace Dws.CodePuzzle.Core.Web.Controllers
 {

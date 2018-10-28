@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Autofac;
-using Autofac.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -17,13 +15,9 @@ namespace Dws.CodePuzzle.Core.Web
         {
             Configuration = configuration;
 
-            var builder = new ContainerBuilder();
-            builder.RegisterType<BasicShapeDefinitionParser>().As<IShapeDefinitionParser>();
-
-            IoCContainer = builder.Build(Autofac.Builder.ContainerBuildOptions.None);
         }
 
-        public static IContainer IoCContainer;
+
 
         public IConfiguration Configuration { get; }
 
