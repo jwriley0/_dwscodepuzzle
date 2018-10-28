@@ -2,12 +2,21 @@
 
 namespace Dws.CodePuzzle.Core
 {
-    public abstract class RegularPolygon : IRegularPolygonDefinition
+    public abstract class RegularPolygonDefinition : IRegularPolygonDefinition
     {
+        /// <summary>
+        /// Gets or sets the length of each of the sides of the polygon.
+        /// </summary>
         public float SideLength { get; set; }
 
+        /// <summary>
+        /// Gets the number of sides on this polygon.
+        /// </summary>
         public abstract int Sides { get; }
 
+        /// <summary>
+        /// Gets the radius of the polygon.
+        /// </summary>
         public float Radius
         {
             get

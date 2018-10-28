@@ -1,44 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace Dws.CodePuzzle.Core
 {
 
-    public interface IShapeDefinitionResolutionService
-    {
-        IShapeDefinition GetShapeDefinition(string name);
-    }
-
-    public class ShapeDefinitionResolutionService : IShapeDefinitionResolutionService
-    {
-        private readonly IDictionary<string, Type> ShapeDefinitionTypes = GetShapeDefinitionTypes();
-
-        private static IDictionary<string, Type> GetShapeDefinitionTypes()
-        {
-            var shapeDefinitions = typeof(IShapeDefinition).Assembly
-                .GetExportedTypes().Where(i => typeof(IShapeDefinition).IsAssignableFrom(i) && i.IsClass && i.IsAbstract == false);
-
-            return shapeDefinitions.ToDictionary(i => i.Name.Replace("Definition", string.Empty).ToLower());
-        }
-
-        public IShapeDefinition GetShapeDefinition(string shapeName)
-        {
-            var shapeNameKey = shapeName.ToLower().Replace(" ", string.Empty).ToLower();
-
-            if (ShapeDefinitionTypes.ContainsKey(shapeNameKey) == false)
-                throw new InvalidShapeException($"\"{shapeName}\" is not valid a valid shape.");
-
-            var type = ShapeDefinitionTypes[shapeNameKey];
-            var item = Activator.CreateInstance(type);
-
-            return item as IShapeDefinition;
-        }
-    }
-
-    public class BasicShapeDefinitionParser : IShapeDefinitionParser
+    public sealed class BasicShapeDefinitionParser : IShapeDefinitionParser
     {
         static readonly Regex Regex = new Regex(@"draw (a|an) (?<shape>[a-z]+( [a-z]+)?)? with (a )?(?<dim1>[a-z]+( [a-z]+)?) of (?<val1>[0-9]+)( and (a )?(?<dim2>[a-z]+( [a-z]+)?) of (?<val2>[0-9]+))?", RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
         IShapeDefinitionResolutionService shapeDefinitionResolutionService;

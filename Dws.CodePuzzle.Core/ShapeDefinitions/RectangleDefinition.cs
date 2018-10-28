@@ -1,6 +1,6 @@
 ﻿namespace Dws.CodePuzzle.Core
 {
-    public class RectangleDefinition : IWidthHeightShapeDefinition
+    public sealed class RectangleDefinition : IWidthHeightShapeDefinition
     {
         public float Width { get; set; }
 
